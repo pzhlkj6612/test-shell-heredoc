@@ -16,8 +16,7 @@ jobs:
             exit 0
           fi
     
-          cat <<EOF
-          ::error ::
+          msg=$(tr '\n' '%0A' << 'EOF'
             This TypeScript action cannot be used before building within Node.js environment.
             Maybe you are currently using non-tagging branches, for example, the "@master".
             Only v* branches have built JavaScript action file.
@@ -25,4 +24,7 @@ jobs:
             our repository: https://github.com/jurplel/install-qt-action .
             Exiting
           EOF
+          )
+          echo "::error :$msg"
+    
           exit 1
