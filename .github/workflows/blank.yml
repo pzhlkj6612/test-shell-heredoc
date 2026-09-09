@@ -25,6 +25,6 @@ jobs:
             Exiting
           EOF
           )
-          echo "::error :$msg"
+          echo "::error ::$msg"
     
           exit 1
