@@ -17,15 +17,15 @@ jobs:
           if Path("./action/lib/main.js").exists():
               exit(0)
     
-          msg_lines = (
+          lines = (
             'This TypeScript action cannot be used before building within Node.js environment.',
-            'Maybe you are currently using non-tagging branches, for example, the "@master".',
+            'Maybe you are currently using non-tagging branches, for example, the "master" branch.',
             'Only v* branches have built JavaScript action file.',
             'If you would like to test unreleased changes, please refer to the CI workflows in',
             'our repository: https://github.com/jurplel/install-qt-action .',
             'Exiting',
           )
-          msg = '%0A'.join(msg_lines)
-          print(f"::error title=Action not built::{msg}")
+          message = '%0A'.join(lines)
+          print(f"::error file=action.yml,title=Action not built::{message}")
     
           exit(1)
