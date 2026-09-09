@@ -12,16 +12,17 @@ jobs:
       - name: Check the existence of built JavaScript action
         shell: bash
         run: |
-          if [[ -f ./action/lib/main.js ]]; then
-            cat <<EOF
-            ::error ::
-              This TypeScript action cannot be used before building within Node.js environment.
-              Maybe you are currently using non-tagging branches, for example, the "@master".
-              Only v* branches have built JavaScript action file.
-              If you would like to test unreleased changes, please refer to the CI workflows in
-              our repository: https://github.com/jurplel/install-qt-action .
-              Exiting
-          EOF
-    
-            exit 1
+          if [[ -e ./action/lib/main.js ]]; then
+            exit 0
           fi
+    
+          cat <<EOF
+          ::error ::
+            This TypeScript action cannot be used before building within Node.js environment.
+            Maybe you are currently using non-tagging branches, for example, the "@master".
+            Only v* branches have built JavaScript action file.
+            If you would like to test unreleased changes, please refer to the CI workflows in
+            our repository: https://github.com/jurplel/install-qt-action .
+            Exiting
+          EOF
+          exit 1
