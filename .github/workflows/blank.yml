@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check the existence of built JavaScript action
-        shell: bash
+        shell: python
         run: |
-          if [[ -e ./action/lib/main.js ]]; then
-            exit 0
-          fi
+          from pathlib import Path
     
-          msg=$(tr '\n' '%0A' << 'EOF'
-            This TypeScript action cannot be used before building within Node.js environment.
-            Maybe you are currently using non-tagging branches, for example, the "@master".
-            Only v* branches have built JavaScript action file.
-            If you would like to test unreleased changes, please refer to the CI workflows in
-            our repository: https://github.com/jurplel/install-qt-action .
-            Exiting
-          EOF
-          )
-          echo "::error ::$msg"
+          if Path("./action/lib/main.js").exists():
+              exit(0)
     
-          exit 1
+          message = '''
+          This TypeScript action cannot be used before building within Node.js environment.
+          Maybe you are currently using non-tagging branches, for example, the "@master".
+          Only v* branches have built JavaScript action file.
+          If you would like to test unreleased changes, please refer to the CI workflows in
+          our repository: https://github.com/jurplel/install-qt-action .
+          Exiting
+          '''
+          print(f"::error title=Action not built::{message}")
+    
+          exit(1)
