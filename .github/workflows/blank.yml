@@ -21,7 +21,7 @@ jobs:
               If you would like to test unreleased changes, please refer to the CI workflows in
               our repository: https://github.com/jurplel/install-qt-action .
               Exiting
-            EOF
+          EOF
     
             exit 1
           fi
